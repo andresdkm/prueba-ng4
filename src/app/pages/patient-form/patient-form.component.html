@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="title">Crear paciente</h5>
+    </div>
+    <div class="card-body">
+      <form novalidate (ngSubmit)="submit()">
+        <div [formGroup]="patientForm">
+          <div class="row">
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Tipo de documento</label>
+                <select class="form-control" name="documentType" formControlName="documentType">
+                  <option selected hidden value="null">Seleccione..</option>
+                  <option *ngFor="let type of documentTypes" [value]="type.id">{{type.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-7 px-1">
+              <div class="form-group">
+                <label>Documento</label>
+                <input type="text" class="form-control" placeholder="Documento" name="nid" formControlName="nid">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label>Nombres</label>
+                <input type="text" class="form-control" placeholder="Nombres" name="firstName"
+                       formControlName="firstName">
+                <div
+                  *ngIf="submitted && patientForm.get('firstName').errors && patientForm.get('firstName').errors['required']">
+                  <span class="error">Nombres requerido</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label>Apellidos</label>
+                <input type="text" class="form-control" placeholder="Apellidos" name="lastName"
+                       formControlName="lastName">
+                <div
+                  *ngIf="submitted && patientForm.get('firstName').errors && patientForm.get('firstName').errors['required']">
+                  <span class="error">Apellidos requerido</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 pr-1">
+              <div class="form-group">
+                <label>Fecha de nacimiento</label>
+                <input class="form-control" placeholder="yyyy-mm-dd"
+                       on-focus="d.toggle()"
+                       name="dp"
+                       formControlName="birthdate"
+                       [maxDate]="maxDate"
+                       ngbDatepicker #d="ngbDatepicker">
+              </div>
+            </div>
+            <div class="col-md-4 pl-1">
+              <div class="form-group">
+                <label>Correo</label>
+                <input type="email" class="form-control" placeholder="Correo" name="email" formControlName="email">
+                <div *ngIf="submitted && patientForm.get('email').errors && patientForm.get('email').errors['email']">
+                  <span class="error">Correo invalido</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1 pl-1">
+              <div class="form-group">
+                <label>Sin Teléfono</label>
+                <input type="checkbox" class="form-control" name="without_phone"
+                       formControlName="without_phone"
+                       (change)="onWithoutPhoneValueChanged()">
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" class="form-control" placeholder="Teléfono" name="phone" formControlName="phone">
+                <div *ngIf="submitted && patientForm.get('phone').errors">
+                  <span class="error" *ngIf="patientForm.get('phone').errors['required']">Telefono requerido</span>
+                  <span class="error" *ngIf="patientForm.get('phone').errors['pattern']">Solo numeros, entre 7 y 10 caracteres</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12 pr-1">
+            <label>Sin acompañante</label>
+            <input type="checkbox" class="form-control" name="without_companion" [(ngModel)]="withoutCompanion" (change)="onWithoutCompanionValueChanged()">
+          </div>
+        </div>
+        <div [formGroup]="companionForm">
+          <div class="row">
+            <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label>Nombres</label>
+                <input type="text" class="form-control" placeholder="Nombres" name="firstName"
+                       formControlName="firstName">
+                <div
+                  *ngIf="submitted && companionForm.get('firstName').errors && companionForm.get('firstName').errors['required']">
+                  <span class="error">Nombres requerido</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label>Apellidos</label>
+                <input type="text" class="form-control" placeholder="Apellidos" name="lastName"
+                       formControlName="lastName">
+                <div
+                  *ngIf="submitted && companionForm.get('lastName').errors && companionForm.get('lastName').errors['required']">
+                  <span class="error">Apellidos requerido</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <input type="submit" class="btn btn-success" value="Guardar"/>
+      </form>
+    </div>
+  </div>
+</div>
