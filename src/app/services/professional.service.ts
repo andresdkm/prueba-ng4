@@ -4,11 +4,9 @@ import {Constants} from '../constants';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/index';
 import {ProfessionalModel} from '../models/professional.model';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProfessionalService {
 
   constructor(private httpClient: HttpClient) {

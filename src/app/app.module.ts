@@ -15,6 +15,7 @@ import { GridComponent } from './components/grid/grid.component';
 import { FormDataComponent } from './components/form-data/form-data.component';
 import { ProfessionalFormComponent } from './pages/professional-form/professional-form.component';
 import { ProfessionalComponent } from './pages/professional/professional.component';
+import {ProfessionalService} from "./services/professional.service";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ProfessionalComponent } from './pages/professional/professional.compone
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [PatientService],
+  providers: [PatientService, ProfessionalService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

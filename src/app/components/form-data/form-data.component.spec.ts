@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormDataComponent } from './form-data.component';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('FormDataComponent', () => {
   let component: FormDataComponent;
@@ -8,7 +10,15 @@ describe('FormDataComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormDataComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgbModule
+      ],
+      declarations: [ FormDataComponent ],
+      providers: [
+        FormBuilder
+      ],
     })
     .compileComponents();
   }));
