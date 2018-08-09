@@ -123,3 +123,4 @@ describe('ProfessionalService', () => {
     expect(req.request.method).toEqual('POST');
     expect(dataError).toBeUndefined();
   }));
+});
