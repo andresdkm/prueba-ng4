@@ -10,13 +10,23 @@ import {PatientService} from './services/patient.service';
 import {HttpClientModule} from '@angular/common/http';
 import { PatientFormComponent } from './pages/patient-form/patient-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DatePipe } from './pipes/date.pipe';
+import { GridComponent } from './components/grid/grid.component';
+import { FormDataComponent } from './components/form-data/form-data.component';
+import { ProfessionalFormComponent } from './pages/professional-form/professional-form.component';
+import { ProfessionalComponent } from './pages/professional/professional.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PatientComponent,
-    PatientFormComponent
+    PatientFormComponent,
+    DatePipe,
+    GridComponent,
+    FormDataComponent,
+    ProfessionalFormComponent,
+    ProfessionalComponent
   ],
   imports: [
     BrowserModule,

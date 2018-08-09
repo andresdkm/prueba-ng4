@@ -1,11 +1,11 @@
 <div class="row">
   <div class="card">
     <div class="card-header">
-      <h5 class="title">Crear paciente</h5>
+      <h5 class="title">Crear profesional</h5>
     </div>
     <div class="card-body">
       <form novalidate (ngSubmit)="submit()">
-        <div [formGroup]="patientForm">
+        <div [formGroup]="professionalForm">
           <div class="row">
             <div class="col-md-5 pr-1">
               <div class="form-group">
@@ -30,7 +30,7 @@
                 <input type="text" class="form-control" placeholder="Nombres" name="firstName"
                        formControlName="firstName">
                 <div
-                  *ngIf="submitted && patientForm.get('firstName').errors && patientForm.get('firstName').errors['required']">
+                  *ngIf="submitted && professionalForm.get('firstName').errors && professionalForm.get('firstName').errors['required']">
                   <span class="error">Nombres requerido</span>
                 </div>
               </div>
@@ -41,7 +41,7 @@
                 <input type="text" class="form-control" placeholder="Apellidos" name="lastName"
                        formControlName="lastName">
                 <div
-                  *ngIf="submitted && patientForm.get('firstName').errors && patientForm.get('firstName').errors['required']">
+                  *ngIf="submitted && professionalForm.get('firstName').errors && professionalForm.get('firstName').errors['required']">
                   <span class="error">Apellidos requerido</span>
                 </div>
               </div>
@@ -57,7 +57,7 @@
                        formControlName="birthdate"
                        [maxDate]="maxDate"
                        ngbDatepicker #d="ngbDatepicker">
-                <div *ngIf="submitted && patientForm.get('birthdate').errors && patientForm.get('birthdate').errors['required']">
+                <div *ngIf="submitted && professionalForm.get('birthdate').errors && professionalForm.get('birthdate').errors['required']">
                   <span class="error">Fecha de nacimiento requerida</span>
                 </div>
               </div>
@@ -66,7 +66,7 @@
               <div class="form-group">
                 <label>Correo</label>
                 <input type="email" class="form-control" placeholder="Correo" name="email" formControlName="email">
-                <div *ngIf="submitted && patientForm.get('email').errors && patientForm.get('email').errors['email']">
+                <div *ngIf="submitted && professionalForm.get('email').errors && professionalForm.get('email').errors['email']">
                   <span class="error">Correo invalido</span>
                 </div>
               </div>
@@ -76,16 +76,16 @@
                 <label>Sin Teléfono</label>
                 <input type="checkbox" class="form-control" name="without_phone"
                        formControlName="without_phone"
-                       (change)="onWithoutPhoneValueChanged(patientForm)">
+                       (change)="onWithoutPhoneValueChanged(professionalForm)">
               </div>
             </div>
             <div class="col-md-3 pl-1">
               <div class="form-group">
                 <label>Teléfono</label>
                 <input type="text" class="form-control" placeholder="Teléfono" name="phone" formControlName="phone">
-                <div *ngIf="submitted && patientForm.get('phone').errors">
-                  <span class="error" *ngIf="patientForm.get('phone').errors['required']">Telefono requerido</span>
-                  <span class="error" *ngIf="patientForm.get('phone').errors['pattern']">Solo numeros, entre 7 y 10 caracteres</span>
+                <div *ngIf="submitted && professionalForm.get('phone').errors">
+                  <span class="error" *ngIf="professionalForm.get('phone').errors['required']">Telefono requerido</span>
+                  <span class="error" *ngIf="professionalForm.get('phone').errors['pattern']">Solo numeros, entre 7 y 10 caracteres</span>
                 </div>
               </div>
             </div>
@@ -94,11 +94,11 @@
         <hr>
         <div class="row">
           <div class="col-md-12 pr-1">
-            <label>Sin acompañante</label>
+            <label>Sin referencia</label>
             <input type="checkbox" class="form-control" name="without_companion" [(ngModel)]="withoutCompanion" (change)="onWithoutCompanionValueChanged()">
           </div>
         </div>
-        <div [formGroup]="companionForm">
+        <div [formGroup]="referenceForm">
           <div class="row">
             <div class="col-md-6 pr-1">
               <div class="form-group">
@@ -106,7 +106,7 @@
                 <input type="text" class="form-control" placeholder="Nombres" name="firstName"
                        formControlName="firstName">
                 <div
-                  *ngIf="submitted && companionForm.get('firstName').errors && companionForm.get('firstName').errors['required']">
+                  *ngIf="submitted && referenceForm.get('firstName').errors && referenceForm.get('firstName').errors['required']">
                   <span class="error">Nombres requerido</span>
                 </div>
               </div>
@@ -116,7 +116,7 @@
                 <label>Apellidos</label>
                 <input type="text" class="form-control" placeholder="Apellidos" name="lastName"
                        formControlName="lastName">
-                <div *ngIf="submitted && companionForm.get('lastName').errors && companionForm.get('lastName').errors['required']">
+                <div *ngIf="submitted && referenceForm.get('lastName').errors && referenceForm.get('lastName').errors['required']">
                   <span class="error">Apellidos requerido</span>
                 </div>
               </div>
@@ -130,7 +130,7 @@
                   <option selected hidden value="null">Seleccione..</option>
                   <option *ngFor="let realtionship of relationships" [value]="realtionship.id">{{realtionship.name}}</option>
                 </select>
-                <div *ngIf="submitted && companionForm.get('relationship').errors && companionForm.get('relationship').errors['required']">
+                <div *ngIf="submitted && referenceForm.get('relationship').errors && referenceForm.get('relationship').errors['required']">
                   <span class="error">Parentesco requerido</span>
                 </div>
               </div>
@@ -140,16 +140,16 @@
                 <label>Sin Teléfono</label>
                 <input type="checkbox" class="form-control" name="without_phone"
                        formControlName="without_phone"
-                       (change)="onWithoutPhoneValueChanged(companionForm)">
+                       (change)="onWithoutPhoneValueChanged(referenceForm)">
               </div>
             </div>
             <div class="col-md-3 pl-1">
               <div class="form-group">
                 <label>Teléfono</label>
                 <input type="text" class="form-control" placeholder="Teléfono" name="phone" formControlName="phone">
-                <div *ngIf="submitted && companionForm.get('phone').errors">
-                  <span class="error" *ngIf="companionForm.get('phone').errors['required']">Telefono requerido</span>
-                  <span class="error" *ngIf="companionForm.get('phone').errors['pattern']">Solo numeros, entre 7 y 10 caracteres</span>
+                <div *ngIf="submitted && referenceForm.get('phone').errors">
+                  <span class="error" *ngIf="referenceForm.get('phone').errors['required']">Telefono requerido</span>
+                  <span class="error" *ngIf="referenceForm.get('phone').errors['pattern']">Solo numeros, entre 7 y 10 caracteres</span>
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@
               <div class="form-group">
                 <label>Correo</label>
                 <input type="email" class="form-control" placeholder="Correo" name="email" formControlName="email">
-                <div *ngIf="submitted && companionForm.get('email').errors && companionForm.get('email').errors['email']">
+                <div *ngIf="submitted && referenceForm.get('email').errors && referenceForm.get('email').errors['email']">
                   <span class="error">Correo invalido</span>
                 </div>
               </div>

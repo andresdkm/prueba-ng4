@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PatientService} from '../../services/patient.service';
 import {PatientModel} from '../../models/patient.model';
+import {FieldModel} from '../../models/field.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-patient',
@@ -10,11 +12,27 @@ import {PatientModel} from '../../models/patient.model';
 export class PatientComponent implements OnInit {
 
   patients: Array<PatientModel>;
-  constructor(private patientService: PatientService) {
-    this.patientService.index()
-      .subscribe((response) => {
-        console.log(response);
-      });
+  fields: FieldModel[];
+
+  constructor(private patientService: PatientService,
+              private router: Router) {
+    this.fields = [
+      {
+        label: 'Nombre',
+        field: 'firstName'
+      }, {
+        label: 'Apellidos',
+        field: 'lastName'
+      },
+      {
+        label: 'Teléfono',
+        field: 'phone'
+      },
+      {
+        label: 'Correo',
+        field: 'email'
+      }
+    ];
   }
 
   ngOnInit() {
@@ -24,4 +42,11 @@ export class PatientComponent implements OnInit {
       });
   }
 
+  updatePatient(item) {
+    this.router.navigateByUrl('/patient-edit/' + item.key);
+  }
+
+  createPatient() {
+    this.router.navigateByUrl('/patient-create');
+  }
 }

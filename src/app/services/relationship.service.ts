@@ -6,8 +6,8 @@ const StringIsNumber = value => isNaN(Number(value)) === false;
   providedIn: 'root'
 })
 export class RelationshipService {
-
   constructor() { }
+
   index() {
     return Object.keys(RelationshipEnum)
       .filter(StringIsNumber)

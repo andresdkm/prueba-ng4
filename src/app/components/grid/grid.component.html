@@ -1,0 +1,28 @@
+<div class="card-body">
+  <a type="button" (click)="create()" class="btn btn-primary">Crear</a>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class=" text-primary">
+      <th *ngFor="let field of fields">
+        {{field.label}}
+      </th>
+      <th>
+        Acciones
+      </th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of data">
+        <td *ngFor="let field of fields">
+          {{item[field.field]}}
+        </td>
+        <td>
+          <a type="button" (click)="update(item)" class="btn btn-warning">
+            Editar
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

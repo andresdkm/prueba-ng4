@@ -4,49 +4,8 @@
       <div class="card-header">
         <h4 class="card-title"> Pacientes</h4>
       </div>
-      <div class="card-body">
-        <a type="button" [routerLink]="['/patient-create']" class="btn btn-primary">Crear</a>
-        <div class="table-responsive">
-          <table class="table">
-            <thead class=" text-primary">
-            <th>
-              DNI
-            </th>
-            <th>
-              Nombre
-            </th>
-            <th>
-              Apellido
-            </th>
-            <th>
-              Fecha de nacimiento
-            </th>
-            <th>
-              Correo
-            </th>
-            </thead>
-            <tbody>
-            <tr *ngFor="let patient of patients">
-              <td>
-                {{patient.nid}}
-              </td>
-              <td>
-                {{patient.name}}
-              </td>
-              <td>
-                {{patient.lastName}}
-              </td>
-              <td>
-                {{patient.birthdate}}
-              </td>
-              <td>
-                {{patient.email}}
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <app-grid [fields]="fields" [data]="patients" (update)="updatePatient($event)" (create)="createPatient($event)">
+      </app-grid>
     </div>
   </div>
 </div>

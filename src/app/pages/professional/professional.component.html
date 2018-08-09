@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Profesionales</h4>
+      </div>
+      <app-grid [fields]="fields" [data]="professionals" (update)="updateProfessional($event)" (create)="createProfessional($event)">
+      </app-grid>
+    </div>
+  </div>
+</div>

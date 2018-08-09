@@ -1,0 +1,69 @@
+<div [formGroup]="myForm">
+  <div class="row" *ngFor="let field of fields">
+    <div class="col-md-{{field.size}} pr-1">
+      <div class="form-group">
+        <label>{{field.label}}</label>
+        <div [ngSwitch]="field.type">
+          <div *ngSwitchCase="'select'">
+            <select class="form-control" [name]="field.field" [formControlName]="field.field">
+              <option selected hidden value="null">Seleccione..</option>
+              <option *ngFor="let item of field.values" [value]="item.id">{{item.name}}</option>
+            </select>
+          </div>
+          <div *ngSwitchCase="text">
+            <input type="text" class="form-control" [placeholder]="field.label" [name]="field.field"
+                   [formControlName]="field.field">
+            <div
+              *ngIf="submitted && myForm.get(field.field).errors && myForm.get(field.field).errors['required']">
+              <span class="error">{{field.label}} requerido</span>
+            </div>
+          </div>
+          <div *ngSwitchCase="email">
+            <input type="email" class="form-control" [placeholder]="field.label" [name]="field.field"
+                   [formControlName]="field.field">
+            <div
+              *ngIf="submitted && patientForm.get(field.field).errors && patientForm.get(field.field).errors['email']">
+              <span class="error">{{field.label}} invalido</span>
+            </div>
+          </div>
+          <div *ngSwitchCase="phone">
+            <div class="row">
+              <div class="col-md-1 pl-1">
+                <div class="form-group">
+                  <label>Sin {{field.label}}</label>
+                  <input type="checkbox" class="form-control" name="without_phone"
+                         formControlName="without_phone"
+                         (change)="onWithoutPhoneValueChanged(patientForm)">
+                </div>
+              </div>
+              <div class="col-md-3 pl-1">
+                <div class="form-group">
+                  <input type="text" class="form-control" [placeholder]="field.label" [name]="field.field"
+                         [formControlName]="field.field">
+                  <div *ngIf="submitted && patientForm.get(field.field).errors">
+                    <span class="error" *ngIf="patientForm.get(field.field).errors['required']"> {{field.label}} requerido</span>
+                    <span class="error" *ngIf="patientForm.get(field.field).errors['pattern']">Solo numeros, entre 7 y 10 caracteres</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngSwitchCase="date">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   on-focus="d.toggle()"
+                   name="dp"
+                   [formControlName]="field.field"
+                   [maxDate]="maxDate"
+                   ngbDatepicker #d="ngbDatepicker">
+            <div
+              *ngIf="submitted && patientForm.get(field.field).errors && patientForm.get(field.field).errors['required']">
+              <span class="error">{{field.label}} requerida</span>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

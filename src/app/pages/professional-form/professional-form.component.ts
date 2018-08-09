@@ -1,39 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {DocumentTypeService} from '../../services/document-type.service';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ProfessionalModel} from '../../models/professional.model';
+import {DocumentTypeService} from '../../services/document-type.service';
 import {RelationshipService} from '../../services/relationship.service';
-import {PatientModel} from '../../models/patient.model';
-import {ChildModel} from '../../models/child.model';
-import {PatientService} from '../../services/patient.service';
+import {ProfessionalService} from '../../services/professional.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FieldModel} from "../../models/field.model";
+import {ChildModel} from '../../models/child.model';
 
 @Component({
-  selector: 'app-patient-form',
-  templateUrl: './patient-form.component.html',
-  styleUrls: ['./patient-form.component.css']
+  selector: 'app-professional-form',
+  templateUrl: './professional-form.component.html',
+  styleUrls: ['./professional-form.component.css']
 })
-export class PatientFormComponent implements OnInit {
+export class ProfessionalFormComponent implements OnInit {
 
   documentTypes: any;
   relationships: [];
   submitted = false;
-  patientForm: FormGroup;
-  companionForm: FormGroup;
+  professionalForm: FormGroup;
+  referenceForm: FormGroup;
   withoutCompanion: false;
   maxDate: { year: number, month: number, day: number };
-  patientModel: PatientModel;
-  personFields: FieldModel[];
+  professionalModel: ProfessionalModel;
 
   constructor(private documentTypeService: DocumentTypeService,
               private relationshipService: RelationshipService,
-              private patientService: PatientService,
+              private professionalService: ProfessionalService,
               private fb: FormBuilder,
               private router: Router,
               private route: ActivatedRoute) {
     const now = new Date();
     this.maxDate = {year: now.getFullYear(), month: now.getMonth(), day: now.getDate()};
-    this.patientForm = this.fb.group({
+    this.professionalForm = this.fb.group({
       'firstName': ['', Validators.compose([Validators.required])],
       'lastName': ['', Validators.compose([Validators.required])],
       'email': ['', Validators.compose([Validators.email])],
@@ -45,7 +43,7 @@ export class PatientFormComponent implements OnInit {
     });
     this.documentTypes = this.documentTypeService.index();
     this.relationships = this.relationshipService.index();
-    this.onWithoutCompanionValueChanged()
+    this.onWithoutCompanionValueChanged();
     this.personFields = [
       {
         label: 'Tipo de documento',
@@ -68,21 +66,21 @@ export class PatientFormComponent implements OnInit {
 
 
   private makePatient() {
-    Object.keys(this.patientModel)
+    Object.keys(this.professionalModel)
       .forEach(key => {
-        if (this.patientForm.get(key)) {
-          this.patientForm.get(key).setValue(this.patientModel[key]);
+        if (this.professionalForm.get(key)) {
+          this.professionalForm.get(key).setValue(this.professionalModel[key]);
         }
       });
-    if (this.patientModel.without_phone) {
-      this.patientForm.get('phone').setValidators([]);
-      this.patientForm.get('phone').updateValueAndValidity();
+    if (this.professionalModel.without_phone) {
+      this.professionalForm.get('phone').setValidators([]);
+      this.professionalForm.get('phone').updateValueAndValidity();
     }
-    if (this.patientModel.companion) {
-      Object.keys(this.patientModel.companion)
+    if (this.professionalModel.companion) {
+      Object.keys(this.professionalModel.companion)
         .forEach(key => {
-          if (this.companionForm.get(key)) {
-            this.companionForm.get(key).setValue(this.patientModel.companion[key]);
+          if (this.referenceForm.get(key)) {
+            this.referenceForm.get(key).setValue(this.professionalModel.companion[key]);
           }
         });
     } else {
@@ -94,28 +92,28 @@ export class PatientFormComponent implements OnInit {
   private loadPatient(id: string) {
     this.patientService.show(id)
       .subscribe(response => {
-        this.patientModel = response;
+        this.professionalModel = response;
         this.makePatient();
       });
   }
 
   submit() {
     this.submitted = true;
-    console.log(this.patientForm, this.companionForm);
-    if (this.patientForm.valid && this.companionForm.valid) {
-      let patient: PatientModel = new PatientModel();
-      patient = <PatientModel> this.patientForm.value;
-      patient.companion = <ChildModel> this.companionForm.value;
-      this.patientService.store(patient)
+    console.log(this.professionalForm, this.referenceForm);
+    if (this.professionalForm.valid && this.referenceForm.valid) {
+      let professional: ProfessionalModel = new ProfessionalModel();
+      professional = <ProfessionalModel> this.professionalForm.value;
+      professional.companion = <ChildModel> this.referenceForm.value;
+      this.professionalService.store(professional)
         .subscribe((response) => {
-          this.router.navigateByUrl('/patients');
+          this.router.navigateByUrl('/professional');
         });
     }
   }
 
   onWithoutCompanionValueChanged() {
     if (!this.withoutCompanion) {
-      this.companionForm = this.fb.group({
+      this.referenceForm = this.fb.group({
         'firstName': ['', Validators.compose([Validators.required])],
         'lastName': ['', Validators.compose([Validators.required])],
         'phone': ['', this.phoneValidators],
@@ -124,7 +122,7 @@ export class PatientFormComponent implements OnInit {
         'relationship': ['', Validators.compose([Validators.required])]
       });
     } else {
-      this.companionForm = this.fb.group({
+      this.referenceForm = this.fb.group({
         'firstName': null,
         'lastName': null,
         'relationship': null,
@@ -133,9 +131,9 @@ export class PatientFormComponent implements OnInit {
         'email': null
       });
     }
-    Object.keys(this.companionForm.controls)
+    Object.keys(this.referenceForm.controls)
       .forEach(control => {
-        this.companionForm.get(control).updateValueAndValidity();
+        this.referenceForm.get(control).updateValueAndValidity();
       });
   }
 
@@ -149,5 +147,6 @@ export class PatientFormComponent implements OnInit {
     }
     phoneNumberControl.updateValueAndValidity();
   }
+
 
 }
