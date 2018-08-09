@@ -19,18 +19,30 @@ export class PatientComponent implements OnInit {
     this.fields = [
       {
         label: 'Nombre',
-        field: 'firstName'
+        field: 'firstName',
+        size: 6,
+        type: 'text',
+        values: null
       }, {
         label: 'Apellidos',
-        field: 'lastName'
+        field: 'lastName',
+        size: 6,
+        type: 'text',
+        values: null
       },
       {
         label: 'Teléfono',
-        field: 'phone'
+        field: 'phone',
+        size: 6,
+        type: 'text',
+        values: null
       },
       {
         label: 'Correo',
-        field: 'email'
+        field: 'email',
+        size: 6,
+        type: 'text',
+        values: null
       }
     ];
   }

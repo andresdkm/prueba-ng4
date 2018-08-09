@@ -1,15 +1,7 @@
 export class FieldModel {
   label: string;
   field: string;
-  values: [];
+  values: Array;
   type: any;
   size: number;
-
-  get size(): number {
-    if (this.size) {
-      return this.size;
-    } else {
-      return 6;
-    }
-  }
 }

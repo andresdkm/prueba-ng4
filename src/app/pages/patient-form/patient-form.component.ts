@@ -23,7 +23,6 @@ export class PatientFormComponent implements OnInit {
   withoutCompanion: false;
   maxDate: { year: number, month: number, day: number };
   patientModel: PatientModel;
-  personFields: FieldModel[];
 
   constructor(private documentTypeService: DocumentTypeService,
               private relationshipService: RelationshipService,
